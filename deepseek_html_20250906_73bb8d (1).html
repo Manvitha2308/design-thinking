@@ -1,0 +1,2156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Time Bank</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a4b8c;
+            --secondary: #2e7d32;
+            --accent: #ff6b00;
+            --light: #f5f5f5;
+            --dark: #333;
+            --gray: #757575;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f2f5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), #0d2d59);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            font-size: 24px;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: #ffcc80;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #e65c00;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid white;
+            color: white;
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #3d8b40;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(26, 75, 140, 0.8), rgba(26, 75, 140, 0.9)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3') center/cover;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .features {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            background-color: var(--primary);
+            color: white;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 24px;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .how-it-works {
+            background-color: var(--light);
+            padding: 60px 0;
+        }
+        
+        .steps {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .step {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            width: 250px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .step-icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .dashboard {
+            padding: 60px 0;
+        }
+        
+        .dashboard-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            background-color: #e0e0e0;
+            cursor: pointer;
+            border-radius: 4px 4px 0 0;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .tab.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .requests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .request-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .request-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .request-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .request-category {
+            background-color: var(--secondary);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        
+        .request-time {
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        .request-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .request-desc {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .request-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .request-credits {
+            font-weight: bold;
+            color: var(--accent);
+        }
+        
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .close-modal {
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--gray);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+        }
+        
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        /* Profile Page Styles */
+        .profile-section {
+            display: none;
+            padding: 60px 0;
+        }
+        
+        .profile-header {
+            background: linear-gradient(135deg, var(--primary), #0d2d59);
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            font-weight: bold;
+        }
+        
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: var(--gray);
+        }
+        
+        .profile-requests {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Credit History Styles */
+        .credit-history {
+            margin-top: 30px;
+        }
+        
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .history-item:last-child {
+            border-bottom: none;
+        }
+        
+        .credit-positive {
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .credit-negative {
+            color: var(--danger);
+            font-weight: bold;
+        }
+        
+        /* To-Do List Styles */
+        .todo-section {
+            display: none;
+            padding: 60px 0;
+        }
+        
+        .todo-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        
+        @media (min-width: 992px) {
+            .todo-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .todo-card {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .todo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .todo-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .todo-form input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .todo-detail-form {
+            margin-top: 20px;
+        }
+        
+        .todo-list {
+            list-style: none;
+        }
+        
+        .todo-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.3s;
+        }
+        
+        .todo-item:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .todo-item input[type="checkbox"] {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+        }
+        
+        .todo-item-content {
+            flex: 1;
+        }
+        
+        .todo-item-title {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .todo-item-details {
+            display: flex;
+            gap: 15px;
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .todo-item-priority {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        
+        .priority-high {
+            background-color: #ffebee;
+            color: var(--danger);
+        }
+        
+        .priority-medium {
+            background-color: #fff8e1;
+            color: var(--warning);
+        }
+        
+        .priority-low {
+            background-color: #e8f5e9;
+            color: var(--success);
+        }
+        
+        .todo-item-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .todo-item-actions button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--gray);
+            transition: color 0.3s;
+        }
+        
+        .todo-item-actions button:hover {
+            color: var(--primary);
+        }
+        
+        .todo-item.completed .todo-item-title {
+            text-decoration: line-through;
+            color: var(--gray);
+        }
+        
+        /* About Section Styles */
+        .about-section {
+            display: none;
+            padding: 60px 0;
+        }
+        
+        .about-content {
+            background: white;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            color: var(--dark);
+        }
+        
+        .about-content h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .about-content p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .team-member {
+            text-align: center;
+        }
+        
+        .team-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+        }
+        
+        /* Messages Section Styles */
+        .messages-section {
+            display: none;
+            padding: 60px 0;
+        }
+        
+        .messages-container {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+            height: 600px;
+        }
+        
+        .messages-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .messages-list {
+            list-style: none;
+            overflow-y: auto;
+        }
+        
+        .message-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+        
+        .message-item:hover, .message-item.active {
+            background-color: #f9f9f9;
+        }
+        
+        .message-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .message-content {
+            flex: 1;
+        }
+        
+        .message-sender {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .message-preview {
+            color: var(--gray);
+            font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .message-time {
+            color: var(--gray);
+            font-size: 12px;
+        }
+        
+        .message-window {
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid #eee;
+            padding-left: 20px;
+        }
+        
+        .message-conversation {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            padding-right: 10px;
+        }
+        
+        .message-bubble {
+            padding: 10px 15px;
+            border-radius: 18px;
+            margin-bottom: 10px;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+        
+        .message-received {
+            background-color: #e9e9e9;
+            align-self: flex-start;
+        }
+        
+        .message-sent {
+            background-color: var(--primary);
+            color: white;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+        
+        .message-input {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .message-input input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 16px;
+        }
+        
+        .message-input button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+        }
+        
+        /* User profile */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        /* Time credits display */
+        .time-credits {
+            background-color: white;
+            color: var(--accent);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-left: 15px;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .steps {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .auth-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .messages-container {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            
+            .message-window {
+                border-left: none;
+                border-top: 1px solid #eee;
+                padding-left: 0;
+                padding-top: 20px;
+                margin-top: 20px;
+            }
+            
+            .todo-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-clock"></i>
+                    <h1>University Time Bank</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="nav-link" data-target="home">Home</a></li>
+                        <li><a href="#" class="nav-link" data-target="requests">Browse Requests</a></li>
+                        <li><a href="#" class="nav-link" data-target="how-it-works">How It Works</a></li>
+                        <li><a href="#" class="nav-link" data-target="todo">To-Do List</a></li>
+                        <li><a href="#" class="nav-link" data-target="messages">Messages</a></li>
+                        <li><a href="#" class="nav-link" data-target="profile">Profile</a></li>
+                        <li><a href="#" class="nav-link" data-target="about">About</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons" id="authButtons">
+                    <button class="btn btn-outline" id="loginBtn">Login</button>
+                    <button class="btn btn-primary" id="signupBtn">Sign Up</button>
+                </div>
+                <div class="user-profile" id="userProfile" style="display: none;">
+                    <div class="user-avatar">JD</div>
+                    <div class="user-info">
+                        <div>John Doe</div>
+                        <div style="font-size: 12px;">Student</div>
+                    </div>
+                    <div class="time-credits">12 credits</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Section -->
+        <section class="hero" id="home">
+            <div class="container">
+                <h2>Share Your Time, Gain Credits, Get Help</h2>
+                <p>Connect with students, faculty, administration, and lab assistants across the university to exchange services based on available time.</p>
+                <button class="btn btn-primary" id="getStartedBtn">Get Started</button>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="container">
+                <h2 class="section-title">How Our Time Bank Works</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-hourglass-half"></i>
+                        </div>
+                        <h3>Earn Time Credits</h3>
+                        <p>Help others with tasks and earn time credits that you can use to get help when you need it.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <h3>Request Assistance</h3>
+                        <p>Post tasks you need help with and connect with people who have the skills and time to assist you.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>Build Community</h3>
+                        <p>Strengthen connections across campus and build a supportive university community.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="how-it-works" id="how-it-works">
+            <div class="container">
+                <h2 class="section-title">Simple Steps to Get Started</h2>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <h3>Create Account</h3>
+                        <p>Sign up as a student, faculty, admin, or lab assistant</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-icon">
+                            <i class="fas fa-edit"></i>
+                        </div>
+                        <h3>Post a Request</h3>
+                        <p>Describe what help you need and how many credits you're offering</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>Find Help</h3>
+                        <p>Browse requests or wait for someone to respond to your post</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <h3>Exchange Services</h3>
+                        <p>Complete the task and transfer time credits</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section class="dashboard" id="requests">
+            <div class="container">
+                <h2 class="section-title">Current Requests</h2>
+                <div class="dashboard-tabs">
+                    <div class="tab active" data-category="all">All Requests</div>
+                    <div class="tab" data-category="academic">Academic</div>
+                    <div class="tab" data-category="administrative">Administrative</div>
+                    <div class="tab" data-category="technical">Technical</div>
+                    <div class="tab" data-category="other">Other</div>
+                </div>
+                <div class="requests-grid" id="requestsContainer">
+                    <!-- Requests will be loaded here dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- To-Do List Section -->
+        <section class="todo-section" id="todo">
+            <div class="container">
+                <h2 class="section-title">My To-Do List</h2>
+                <div class="todo-container">
+                    <div class="todo-card">
+                        <div class="todo-header">
+                            <h3>Tasks</h3>
+                            <span id="todoCount">0 tasks</span>
+                        </div>
+                        
+                        <form class="todo-form" id="todoForm">
+                            <input type="text" id="todoInput" placeholder="Add a new task..." required>
+                            <button type="submit" class="btn btn-primary">Add</button>
+                        </form>
+                        
+                        <ul class="todo-list" id="todoList">
+                            <!-- To-do items will be added here dynamically -->
+                        </ul>
+                    </div>
+                    
+                    <div class="todo-card">
+                        <h3>Task Details</h3>
+                        <form id="todoDetailForm">
+                            <div class="form-group">
+                                <label for="todoTitle">Task Title</label>
+                                <input type="text" id="todoTitle" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="todoDescription">Description</label>
+                                <textarea id="todoDescription" class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="todoDueDate">Due Date</label>
+                                <input type="date" id="todoDueDate" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="todoPriority">Priority</label>
+                                <select id="todoPriority" class="form-select">
+                                    <option value="low">Low</option>
+                                    <option value="medium" selected>Medium</option>
+                                    <option value="high">High</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Task</button>
+                            <button type="button" class="btn btn-outline" id="cancelEdit">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Messages Section -->
+        <section class="messages-section" id="messages">
+            <div class="container">
+                <h2 class="section-title">Messages</h2>
+                <div class="messages-container">
+                    <div class="messages-list-container">
+                        <div class="messages-header">
+                            <h3>Inbox</h3>
+                            <button class="btn btn-primary">New Message</button>
+                        </div>
+                        
+                        <ul class="messages-list" id="messagesList">
+                            <!-- Message items will be loaded here dynamically -->
+                        </ul>
+                    </div>
+                    
+                    <div class="message-window">
+                        <div class="message-conversation" id="messageConversation">
+                            <!-- Messages will be loaded here dynamically -->
+                        </div>
+                        
+                        <div class="message-input">
+                            <input type="text" id="messageInput" placeholder="Type your message...">
+                            <button id="messageSendBtn"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section class="profile-section" id="profile">
+            <div class="container">
+                <div class="profile-header">
+                    <div class="profile-avatar">JD</div>
+                    <div>
+                        <h2>John Doe</h2>
+                        <p>Student, Computer Science Department</p>
+                        <p>Joined: January 2023</p>
+                    </div>
+                </div>
+                
+                <div class="profile-stats">
+                    <div class="stat-card">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Available Credits</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">7</div>
+                        <div class="stat-label">Requests Posted</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">15</div>
+                        <div class="stat-label">Tasks Completed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">4.8</div>
+                        <div class="stat-label">Average Rating</div>
+                    </div>
+                </div>
+                
+                <div class="profile-requests">
+                    <h3>My Requests</h3>
+                    <div class="requests-grid" id="myRequestsContainer">
+                        <!-- User's requests will be loaded here dynamically -->
+                    </div>
+                    <button class="btn btn-primary" style="margin-top: 20px; width: 100%;" id="createRequestBtn">Create New Request</button>
+                </div>
+                
+                <div class="credit-history">
+                    <h3>Credit History</h3>
+                    <div class="history-list">
+                        <div class="history-item">
+                            <div>Helped with Python debugging</div>
+                            <div class="credit-positive">+3 credits</div>
+                        </div>
+                        <div class="history-item">
+                            <div>Requested statistics tutoring</div>
+                            <div class="credit-negative">-2 credits</div>
+                        </div>
+                        <div class="history-item">
+                            <div>Helped with lab setup</div>
+                            <div class="credit-positive">+4 credits</div>
+                        </div>
+                        <div class="history-item">
+                            <div>Requested presentation practice</div>
+                            <div class="credit-negative">-3 credits</div>
+                        </div>
+                        <div class="history-item">
+                            <div>Helped with grant proposal</div>
+                            <div class="credit-positive">+5 credits</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section" id="about">
+            <div class="container">
+                <h2 class="section-title">About University Time Bank</h2>
+                <div class="about-content">
+                    <h2>Our Mission</h2>
+                    <p>The University Time Bank is designed to create a supportive campus community where time and skills are shared resources that benefit all members of the university. We believe that everyone has something valuable to offer, and through the exchange of services, we can build stronger connections across campus.</p>
+                    
+                    <h2>How It Works</h2>
+                    <p>Our platform allows students, faculty, administration, and lab assistants to exchange services using time credits as currency. When you help someone with a task, you earn time credits that you can then use to request help for your own needs.</p>
+                    
+                    <h2>For Everyone</h2>
+                    <p>This platform is designed for all members of the university community:</p>
+                    <ul>
+                        <li><strong>Students</strong> can get help with coursework and offer their skills</li>
+                        <li><strong>Faculty</strong> can find assistance with research and administrative tasks</li>
+                        <li><strong>Administration</strong> can connect with people who have available time</li>
+                        <li><strong>Lab Assistants</strong> can offer their technical expertise</li>
+                    </ul>
+                    
+                    <h2>Our Team</h2>
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <div class="team-avatar">JD</div>
+                            <h3>John Doe</h3>
+                            <p>Project Lead</p>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-avatar">SA</div>
+                            <h3>Sarah Anderson</h3>
+                            <p>Development</p>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-avatar">MJ</div>
+                            <h3>Mike Johnson</h3>
+                            <p>Design</p>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-avatar">EP</div>
+                            <h3>Emily Parker</h3>
+                            <p>Community Management</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">
+                    <i class="fas fa-clock"></i>
+                    <h1>University Time Bank</h1>
+                </div>
+                <p>Building a stronger university community through time sharing</p>
+                <div class="footer-links">
+                    <a href="#">About Us</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">FAQ</a>
+                </div>
+                <p>© 2023 University Time Bank. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Login to Your Account</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" class="form-control" placeholder="Your university email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" class="form-control" placeholder="Your password" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create an Account</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" class="form-control" placeholder="Your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">University Email</label>
+                    <input type="email" id="signupEmail" class="form-control" placeholder="Your university email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupRole">I am a</label>
+                    <select id="signupRole" class="form-select" required>
+                        <option value="">Select your role</option>
+                        <option value="student">Student</option>
+                        <option value="faculty">Faculty</option>
+                        <option value="administration">Administration</option>
+                        <option value="lab assistant">Lab Assistant</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="signupDepartment">Department</label>
+                    <input type="text" id="signupDepartment" class="form-control" placeholder="Your department" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" class="form-control" placeholder="Create a password" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupConfirmPassword">Confirm Password</label>
+                    <input type="password" id="signupConfirmPassword" class="form-control" placeholder="Confirm your password" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Create Request Modal -->
+    <div class="modal" id="requestModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create a New Request</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <form id="requestForm">
+                <div class="form-group">
+                    <label for="requestTitle">Title</label>
+                    <input type="text" id="requestTitle" class="form-control" placeholder="What help do you need?" required>
+                </div>
+                <div class="form-group">
+                    <label for="requestCategory">Category</label>
+                    <select id="requestCategory" class="form-select" required>
+                        <option value="">Select a category</option>
+                        <option value="academic">Academic</option>
+                        <option value="administrative">Administrative</option>
+                        <option value="technical">Technical</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="requestDescription">Description</label>
+                    <textarea id="requestDescription" class="form-control" rows="4" placeholder="Describe what you need help with..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="requestCredits">Time Credits Offered</label>
+                    <input type="number" id="requestCredits" class="form-control" min="1" max="10" value="3" required>
+                </div>
+                <div class="form-group">
+                    <label for="requestUrgency">Urgency</label>
+                    <select id="requestUrgency" class="form-select" required>
+                        <option value="low">Low (within 2 weeks)</option>
+                        <option value="medium" selected>Medium (within 1 week)</option>
+                        <option value="high">High (within 48 hours)</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Post Request</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Sample data for demonstration
+        const sampleRequests = [
+            {
+                id: 1,
+                title: "Statistics Tutoring Needed",
+                category: "academic",
+                description: "I need help understanding ANOVA concepts for my research project. Preferably someone with advanced stats knowledge.",
+                credits: 3,
+                postedBy: "Research Student",
+                time: "2 hours ago",
+                urgency: "high"
+            },
+            {
+                id: 2,
+                title: "Lab Equipment Setup",
+                category: "technical",
+                description: "Need assistance setting up spectrophotometer in chemistry lab. Must have experience with this equipment.",
+                credits: 4,
+                postedBy: "Chemistry Faculty",
+                time: "5 hours ago",
+                urgency: "medium"
+            },
+            {
+                id: 3,
+                title: "Grant Proposal Review",
+                category: "administrative",
+                description: "Looking for someone with experience in NIH grant proposals to review my draft and provide feedback.",
+                credits: 5,
+                postedBy: "Biology Department",
+                time: "1 day ago",
+                urgency: "low"
+            },
+            {
+                id: 4,
+                title: "Python Programming Help",
+                category: "academic",
+                description: "Need help debugging a Python script for data analysis. Can meet in the library or virtually.",
+                credits: 2,
+                postedBy: "Data Science Student",
+                time: "3 hours ago",
+                urgency: "medium"
+            },
+            {
+                id: 5,
+                title: "Presentation Practice",
+                category: "academic",
+                description: "Looking for someone to listen to my conference presentation and provide feedback on delivery and content.",
+                credits: 3,
+                postedBy: "Graduate Student",
+                time: "6 hours ago",
+                urgency: "high"
+            },
+            {
+                id: 6,
+                title: "Event Planning Assistance",
+                category: "administrative",
+                description: "Need help organizing department seminar series. Tasks include scheduling, communications, and logistics.",
+                credits: 4,
+                postedBy: "Department Coordinator",
+                time: "1 day ago",
+                urgency: "medium"
+            }
+        ];
+
+        // User's requests
+        const myRequests = [
+            {
+                id: 101,
+                title: "Python Programming Help",
+                category: "academic",
+                description: "Need help debugging a Python script for data analysis.",
+                credits: 2,
+                status: "active",
+                responses: 3,
+                time: "2 days ago"
+            },
+            {
+                id: 102,
+                title: "Thesis Proofreading",
+                category: "academic",
+                description: "Looking for someone to proofread my thesis draft.",
+                credits: 4,
+                status: "completed",
+                responses: 2,
+                time: "1 week ago"
+            }
+        ];
+
+        // To-do list items
+        let todoItems = [
+            {
+                id: 1,
+                title: "Complete research paper",
+                description: "Finish the final section and references",
+                dueDate: "2023-06-15",
+                priority: "high",
+                completed: false
+            },
+            {
+                id: 2,
+                title: "Prepare for presentation",
+                description: "Create slides and practice delivery",
+                dueDate: "2023-06-10",
+                priority: "medium",
+                completed: false
+            },
+            {
+                id: 3,
+                title: "Meet with study group",
+                description: "Review statistics concepts",
+                dueDate: "2023-06-08",
+                priority: "low",
+                completed: true
+            }
+        ];
+
+        // Messages data
+        const messages = [
+            {
+                id: 1,
+                sender: "Sarah Anderson",
+                avatar: "SA",
+                preview: "Thanks for your help with the lab equipment!",
+                time: "10:45 AM",
+                conversation: [
+                    {
+                        text: "Hi John, thanks again for helping me set up the lab equipment yesterday!",
+                        sender: "them",
+                        time: "10:30 AM"
+                    },
+                    {
+                        text: "You're welcome, Dr. Anderson! Happy to help. The spectrophotometer is a fascinating piece of equipment.",
+                        sender: "me",
+                        time: "10:32 AM"
+                    },
+                    {
+                        text: "I was impressed with your knowledge. Would you be interested in helping as a lab assistant for our advanced chemistry class this semester?",
+                        sender: "them",
+                        time: "10:35 AM"
+                    },
+                    {
+                        text: "That would be amazing! I'd love to learn more about the opportunity.",
+                        sender: "me",
+                        time: "10:36 AM"
+                    },
+                    {
+                        text: "Great! Can you stop by my office tomorrow at 3 PM to discuss the details?",
+                        sender: "them",
+                        time: "10:40 AM"
+                    },
+                    {
+                        text: "Absolutely, I'll see you then at 3 PM.",
+                        sender: "me",
+                        time: "10:42 AM"
+                    }
+                ]
+            },
+            {
+                id: 2,
+                sender: "Mike Johnson",
+                avatar: "MJ",
+                preview: "I can help with your Python project",
+                time: "Yesterday",
+                conversation: [
+                    {
+                        text: "Hi John, I saw your request for Python help. I have experience with data analysis scripts.",
+                        sender: "them",
+                        time: "Yesterday, 2:15 PM"
+                    },
+                    {
+                        text: "That's great! I'm having trouble with pandas dataframe operations.",
+                        sender: "me",
+                        time: "Yesterday, 2:20 PM"
+                    },
+                    {
+                        text: "I can help with that. Would you like to meet at the library tomorrow?",
+                        sender: "them",
+                        time: "Yesterday, 2:25 PM"
+                    }
+                ]
+            },
+            {
+                id: 3,
+                sender: "Robert Parker",
+                avatar: "RP",
+                preview: "When are you available for the tutoring session?",
+                time: "Monday",
+                conversation: [
+                    {
+                        text: "Hi John, regarding our stats tutoring session, what's your availability this week?",
+                        sender: "them",
+                        time: "Monday, 11:30 AM"
+                    },
+                    {
+                        text: "I'm free on Wednesday and Thursday afternoons.",
+                        sender: "me",
+                        time: "Monday, 11:45 AM"
+                    },
+                    {
+                        text: "Wednesday at 2 PM works for me. Does that work for you?",
+                        sender: "them",
+                        time: "Monday, 11:50 AM"
+                    }
+                ]
+            }
+        ];
+
+        // DOM Elements
+        const loginBtn = document.getElementById('loginBtn');
+        const signupBtn = document.getElementById('signupBtn');
+        const getStartedBtn = document.getElementById('getStartedBtn');
+        const createRequestBtn = document.getElementById('createRequestBtn');
+        const authButtons = document.getElementById('authButtons');
+        const userProfile = document.getElementById('userProfile');
+        const loginModal = document.getElementById('loginModal');
+        const signupModal = document.getElementById('signupModal');
+        const requestModal = document.getElementById('requestModal');
+        const closeModalButtons = document.querySelectorAll('.close-modal');
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        const requestForm = document.getElementById('requestForm');
+        const tabs = document.querySelectorAll('.tab');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('main > section');
+        const requestsContainer = document.getElementById('requestsContainer');
+        const myRequestsContainer = document.getElementById('myRequestsContainer');
+        const todoForm = document.getElementById('todoForm');
+        const todoInput = document.getElementById('todoInput');
+        const todoList = document.getElementById('todoList');
+        const todoCount = document.getElementById('todoCount');
+        const todoDetailForm = document.getElementById('todoDetailForm');
+        const todoTitle = document.getElementById('todoTitle');
+        const todoDescription = document.getElementById('todoDescription');
+        const todoDueDate = document.getElementById('todoDueDate');
+        const todoPriority = document.getElementById('todoPriority');
+        const cancelEdit = document.getElementById('cancelEdit');
+        const messagesList = document.getElementById('messagesList');
+        const messageConversation = document.getElementById('messageConversation');
+        const messageInput = document.getElementById('messageInput');
+        const messageSendBtn = document.getElementById('messageSendBtn');
+
+        let currentMessageId = 1;
+        let editingTodoId = null;
+
+        // Initialize the app
+        function initApp() {
+            loadRequests('all');
+            loadMyRequests();
+            loadTodoItems();
+            loadMessages();
+            showConversation(currentMessageId);
+            setupEventListeners();
+            resetTodoDetailForm();
+        }
+
+        // Set up event listeners
+        function setupEventListeners() {
+            // Auth buttons
+            loginBtn.addEventListener('click', () => showModal(loginModal));
+            signupBtn.addEventListener('click', () => showModal(signupModal));
+            
+            getStartedBtn.addEventListener('click', () => {
+                if (isLoggedIn()) {
+                    showModal(requestModal);
+                } else {
+                    showModal(signupModal);
+                }
+            });
+            
+            createRequestBtn.addEventListener('click', () => {
+                showModal(requestModal);
+            });
+
+            // Close modals
+            closeModalButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    closeModals();
+                });
+            });
+
+            // Forms submission
+            loginForm.addEventListener('submit', handleLogin);
+            signupForm.addEventListener('submit', handleSignup);
+            requestForm.addEventListener('submit', handleNewRequest);
+            todoForm.addEventListener('submit', handleQuickAddTodo);
+            todoDetailForm.addEventListener('submit', handleSaveTodo);
+
+            // Cancel edit button
+            cancelEdit.addEventListener('click', resetTodoDetailForm);
+
+            // Tabs
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const category = tab.getAttribute('data-category');
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    loadRequests(category);
+                });
+            });
+
+            // Navigation
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = link.getAttribute('data-target');
+                    showSection(target);
+                });
+            });
+            
+            // Message send button
+            messageSendBtn.addEventListener('click', sendMessage);
+            messageInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target.classList.contains('modal')) {
+                    closeModals();
+                }
+            });
+        }
+
+        // Load requests based on category
+        function loadRequests(category) {
+            requestsContainer.innerHTML = '';
+            
+            const filteredRequests = category === 'all' 
+                ? sampleRequests 
+                : sampleRequests.filter(request => request.category === category);
+            
+            if (filteredRequests.length === 0) {
+                requestsContainer.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                        <i class="fas fa-inbox" style="font-size: 60px; color: #ccc; margin-bottom: 15px;"></i>
+                        <h3 style="color: #666;">No requests found</h3>
+                        <p>There are no requests in this category at the moment.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            filteredRequests.forEach(request => {
+                const requestCard = document.createElement('div');
+                requestCard.className = 'request-card';
+                requestCard.innerHTML = `
+                    <div class="request-header">
+                        <span class="request-category">${request.category.charAt(0).toUpperCase() + request.category.slice(1)}</span>
+                        <span class="request-time">${request.time}</span>
+                    </div>
+                    <h3 class="request-title">${request.title}</h3>
+                    <p class="request-desc">${request.description}</p>
+                    <div class="request-footer">
+                        <span class="request-credits">${request.credits} time credits</span>
+                        <button class="btn btn-primary">Help Out</button>
+                    </div>
+                `;
+                requestsContainer.appendChild(requestCard);
+            });
+        }
+
+        // Load user's requests
+        function loadMyRequests() {
+            myRequestsContainer.innerHTML = '';
+            
+            if (myRequests.length === 0) {
+                myRequestsContainer.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                        <i class="fas fa-inbox" style="font-size: 60px; color: #ccc; margin-bottom: 15px;"></i>
+                        <h3 style="color: #666;">No requests yet</h3>
+                        <p>You haven't posted any requests yet.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            myRequests.forEach(request => {
+                const statusClass = request.status === 'active' ? 'request-category' : 'request-category';
+                const statusBg = request.status === 'active' ? 'var(--success)' : 'var(--gray)';
+                
+                const requestCard = document.createElement('div');
+                requestCard.className = 'request-card';
+                requestCard.innerHTML = `
+                    <div class="request-header">
+                        <span class="request-category" style="background-color: ${statusBg}">${request.status.charAt(0).toUpperCase() + request.status.slice(1)}</span>
+                        <span class="request-time">${request.time}</span>
+                    </div>
+                    <h3 class="request-title">${request.title}</h3>
+                    <p class="request-desc">${request.description}</p>
+                    <div class="request-footer">
+                        <span class="request-credits">${request.credits} time credits</span>
+                        <span>${request.responses} responses</span>
+                    </div>
+                `;
+                myRequestsContainer.appendChild(requestCard);
+            });
+        }
+
+        // Load to-do items
+        function loadTodoItems() {
+            todoList.innerHTML = '';
+            
+            if (todoItems.length === 0) {
+                todoList.innerHTML = `
+                    <li style="text-align: center; padding: 20px; color: var(--gray);">
+                        <i class="fas fa-check-circle" style="font-size: 40px; margin-bottom: 10px;"></i>
+                        <p>No tasks yet. Add a new task to get started!</p>
+                    </li>
+                `;
+                updateTodoCount();
+                return;
+            }
+            
+            todoItems.forEach(item => {
+                const todoItem = document.createElement('li');
+                todoItem.className = `todo-item ${item.completed ? 'completed' : ''}`;
+                todoItem.innerHTML = `
+                    <input type="checkbox" ${item.completed ? 'checked' : ''}>
+                    <div class="todo-item-content">
+                        <div class="todo-item-title">${item.title}</div>
+                        <div class="todo-item-details">
+                            <span>${formatDate(item.dueDate)}</span>
+                            <span class="todo-item-priority priority-${item.priority}">${item.priority.charAt(0).toUpperCase() + item.priority.slice(1)}</span>
+                        </div>
+                    </div>
+                    <div class="todo-item-actions">
+                        <button class="edit-btn"><i class="fas fa-edit"></i></button>
+                        <button class="delete-btn"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                
+                // Add event listeners
+                const checkbox = todoItem.querySelector('input[type="checkbox"]');
+                checkbox.addEventListener('change', () => toggleTodoComplete(item.id));
+                
+                const editBtn = todoItem.querySelector('.edit-btn');
+                editBtn.addEventListener('click', () => editTodoItem(item.id));
+                
+                const deleteBtn = todoItem.querySelector('.delete-btn');
+                deleteBtn.addEventListener('click', () => deleteTodoItem(item.id));
+                
+                todoList.appendChild(todoItem);
+            });
+            
+            updateTodoCount();
+        }
+
+        // Load messages
+        function loadMessages() {
+            messagesList.innerHTML = '';
+            
+            messages.forEach(message => {
+                const messageItem = document.createElement('li');
+                messageItem.className = `message-item ${message.id === currentMessageId ? 'active' : ''}`;
+                messageItem.dataset.id = message.id;
+                messageItem.innerHTML = `
+                    <div class="message-avatar">${message.avatar}</div>
+                    <div class="message-content">
+                        <div class="message-sender">${message.sender}</div>
+                        <div class="message-preview">${message.preview}</div>
+                    </div>
+                    <div class="message-time">${message.time}</div>
+                `;
+                
+                messageItem.addEventListener('click', () => {
+                    currentMessageId = message.id;
+                    showConversation(message.id);
+                    
+                    // Update active state
+                    document.querySelectorAll('.message-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    messageItem.classList.add('active');
+                });
+                
+                messagesList.appendChild(messageItem);
+            });
+        }
+
+        // Show conversation
+        function showConversation(messageId) {
+            const message = messages.find(m => m.id === messageId);
+            if (!message) return;
+            
+            messageConversation.innerHTML = '';
+            
+            message.conversation.forEach(msg => {
+                const messageElement = document.createElement('div');
+                messageElement.className = `message-bubble ${msg.sender === 'me' ? 'message-sent' : 'message-received'}`;
+                messageElement.textContent = msg.text;
+                messageConversation.appendChild(messageElement);
+            });
+            
+            // Scroll to bottom
+            messageConversation.scrollTop = messageConversation.scrollHeight;
+        }
+
+        // Handle quick add todo
+        function handleQuickAddTodo(e) {
+            e.preventDefault();
+            
+            const title = todoInput.value.trim();
+            if (title === '') return;
+            
+            const newItem = {
+                id: Date.now(),
+                title,
+                description: '',
+                dueDate: '',
+                priority: 'medium',
+                completed: false
+            };
+            
+            todoItems.push(newItem);
+            todoInput.value = '';
+            
+            loadTodoItems();
+        }
+
+        // Handle save todo (from detail form)
+        function handleSaveTodo(e) {
+            e.preventDefault();
+            
+            const title = todoTitle.value.trim();
+            if (title === '') return;
+            
+            if (editingTodoId) {
+                // Update existing todo
+                const itemIndex = todoItems.findIndex(item => item.id === editingTodoId);
+                if (itemIndex !== -1) {
+                    todoItems[itemIndex] = {
+                        id: editingTodoId,
+                        title,
+                        description: todoDescription.value,
+                        dueDate: todoDueDate.value,
+                        priority: todoPriority.value,
+                        completed: todoItems[itemIndex].completed
+                    };
+                }
+            } else {
+                // Add new todo
+                const newItem = {
+                    id: Date.now(),
+                    title,
+                    description: todoDescription.value,
+                    dueDate: todoDueDate.value,
+                    priority: todoPriority.value,
+                    completed: false
+                };
+                
+                todoItems.push(newItem);
+            }
+            
+            resetTodoDetailForm();
+            loadTodoItems();
+        }
+
+        // Reset todo detail form
+        function resetTodoDetailForm() {
+            todoTitle.value = '';
+            todoDescription.value = '';
+            todoDueDate.value = '';
+            todoPriority.value = 'medium';
+            editingTodoId = null;
+            cancelEdit.style.display = 'none';
+        }
+
+        // Toggle to-do item completion
+        function toggleTodoComplete(id) {
+            const itemIndex = todoItems.findIndex(item => item.id === id);
+            if (itemIndex !== -1) {
+                todoItems[itemIndex].completed = !todoItems[itemIndex].completed;
+                loadTodoItems();
+            }
+        }
+
+        // Edit to-do item
+        function editTodoItem(id) {
+            const item = todoItems.find(item => item.id === id);
+            if (!item) return;
+            
+            todoTitle.value = item.title;
+            todoDescription.value = item.description || '';
+            todoDueDate.value = item.dueDate || '';
+            todoPriority.value = item.priority;
+            
+            editingTodoId = id;
+            cancelEdit.style.display = 'inline-block';
+        }
+
+        // Delete to-do item
+        function deleteTodoItem(id) {
+            todoItems = todoItems.filter(item => item.id !== id);
+            loadTodoItems();
+            
+            if (editingTodoId === id) {
+                resetTodoDetailForm();
+            }
+        }
+
+        // Update to-do count
+        function updateTodoCount() {
+            const total = todoItems.length;
+            const completed = todoItems.filter(item => item.completed).length;
+            const remaining = total - completed;
+            
+            todoCount.textContent = `${remaining} of ${total} tasks remaining`;
+        }
+
+        // Send message
+        function sendMessage() {
+            const messageText = messageInput.value.trim();
+            if (messageText === '') return;
+            
+            const messageElement = document.createElement('div');
+            messageElement.className = 'message-bubble message-sent';
+            messageElement.textContent = messageText;
+            
+            messageConversation.appendChild(messageElement);
+            messageInput.value = '';
+            
+            // Scroll to bottom
+            messageConversation.scrollTop = messageConversation.scrollHeight;
+            
+            // Simulate reply after a short delay
+            setTimeout(() => {
+                const replyElement = document.createElement('div');
+                replyElement.className = 'message-bubble message-received';
+                replyElement.textContent = "Thanks for your message! I'll get back to you soon.";
+                
+                messageConversation.appendChild(replyElement);
+                
+                // Scroll to bottom again
+                messageConversation.scrollTop = messageConversation.scrollHeight;
+            }, 1000);
+        }
+
+        // Format date for display
+        function formatDate(dateString) {
+            if (!dateString) return 'No due date';
+            
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }
+
+        // Show specific section
+        function showSection(sectionId) {
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            document.getElementById(sectionId).style.display = 'block';
+            
+            // Special case for requests section
+            if (sectionId === 'requests') {
+                loadRequests('all');
+                // Reset tabs
+                tabs.forEach(tab => {
+                    tab.classList.remove('active');
+                    if (tab.getAttribute('data-category') === 'all') {
+                        tab.classList.add('active');
+                    }
+                });
+            }
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Show modal
+        function showModal(modal) {
+            closeModals();
+            modal.style.display = 'flex';
+        }
+
+        // Close all modals
+        function closeModals() {
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.style.display = 'none';
+            });
+        }
+
+        // Check if user is logged in (for demo purposes)
+        function isLoggedIn() {
+            return userProfile.style.display === 'flex';
+        }
+
+        // Handle login
+        function handleLogin(e) {
+            e.preventDefault();
+            // In a real app, you would validate credentials with a server
+            authButtons.style.display = 'none';
+            userProfile.style.display = 'flex';
+            closeModals();
+            
+            // Show success message
+            alert('Login successful! Welcome back.');
+        }
+
+        // Handle signup
+        function handleSignup(e) {
+            e.preventDefault();
+            // In a real app, you would send this data to a server
+            authButtons.style.display = 'none';
+            userProfile.style.display = 'flex';
+            closeModals();
+            
+            // Update profile information
+            const userName = document.getElementById('signupName').value;
+            const userRole = document.getElementById('signupRole').value;
+            const userDept = document.getElementById('signupDepartment').value;
+            
+            document.querySelector('.user-info div:first-child').textContent = userName;
+            document.querySelector('.user-info div:last-child').textContent = userRole.charAt(0).toUpperCase() + userRole.slice(1);
+            
+            document.querySelector('.profile-header h2').textContent = userName;
+            document.querySelector('.profile-header p:first-of-type').textContent = `${userRole.charAt(0).toUpperCase() + userRole.slice(1)}, ${userDept} Department`;
+            
+            // Show success message
+            alert('Account created successfully! Welcome to University Time Bank.');
+        }
+
+        // Handle new request
+        function handleNewRequest(e) {
+            e.preventDefault();
+            const title = document.getElementById('requestTitle').value;
+            const category = document.getElementById('requestCategory').value;
+            const description = document.getElementById('requestDescription').value;
+            const credits = document.getElementById('requestCredits').value;
+            const urgency = document.getElementById('requestUrgency').value;
+            
+            // Add to requests (in a real app, this would go to a server)
+            const newRequest = {
+                id: sampleRequests.length + 1,
+                title,
+                category,
+                description,
+                credits: parseInt(credits),
+                postedBy: "You",
+                time: "Just now",
+                urgency
+            };
+            
+            sampleRequests.unshift(newRequest);
+            
+            // Also add to user's requests
+            const myNewRequest = {
+                id: myRequests.length + 1,
+                title,
+                category,
+                description,
+                credits: parseInt(credits),
+                status: "active",
+                responses: 0,
+                time: "Just now"
+            };
+            
+            myRequests.unshift(myNewRequest);
+            
+            // Reload requests
+            const activeTab = document.querySelector('.tab.active');
+            const categoryFilter = activeTab.getAttribute('data-category');
+            loadRequests(categoryFilter);
+            
+            // Reload user's requests
+            loadMyRequests();
+            
+            closeModals();
+            
+            // Show success message
+            alert('Your request has been posted successfully!');
+            
+            // Reset form
+            requestForm.reset();
+        }
+
+        // Initialize the app when the DOM is loaded
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
